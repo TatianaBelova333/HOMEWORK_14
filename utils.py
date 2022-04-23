@@ -132,11 +132,10 @@ def search_for_fellow_actors(database_path, actor_1: str, actor_2: str):
     fellow_actors = {}
     for cast in movie_casts:
         for actor in cast[0].split(', '):
-            if actor != actor_1 and actor != actor_2:
+            if actor not in (actor_1, actor_2):
                 fellow_actors[actor] = fellow_actors.get(actor, 0) + 1
-    multiple_fellow_actors = list(filter(lambda x: x[1] > 2, fellow_actors.items()))
-    multiple_fellow_actors_res = [item[0] for item in multiple_fellow_actors]
-    return multiple_fellow_actors_res
+    multiple_fellow_actors = [key for key, value in fellow_actors.items() if value > 2]
+    return multiple_fellow_actors
 
 
 
